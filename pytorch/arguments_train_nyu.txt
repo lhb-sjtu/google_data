@@ -4,7 +4,7 @@
 --dataset nyu
 --data_path ./google_data/timber_cube/Images
 --gt_path ./google_data/timber_cube/Depths
---batch_size 1
+--batch_size 4
 --num_epochs 20
 --learning_rate 1e-4
 --weight_decay 1e-2
@@ -28,3 +28,4 @@
 --max_depth_eval 0.4
 --eval_summary_directory ./models/eval
 --eigen_crop
+--gpu "0"
