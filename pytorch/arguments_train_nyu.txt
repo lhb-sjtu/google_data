@@ -18,10 +18,10 @@
 --log_directory ./models/train
 --dist_url tcp://127.0.0.1:2345
 
---log_freq 100
+--log_freq 500
 --do_online_eval
---eval_freq 500
---save_freq 200
+--eval_freq 10000
+--save_freq 5000
 --data_path_eval ./google_data/timber_cube_eval/Images
 --gt_path_eval ./google_data/timber_cube_eval/Depths
 --min_depth_eval 0.15
