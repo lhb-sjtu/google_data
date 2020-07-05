@@ -132,17 +132,14 @@ elif args.mode == 'train' and args.checkpoint_path:
             continue
         vars()[key] = val
 
-# 这几句是什么意思？
 
 inv_normalize = transforms.Normalize(
     mean=[-0.485/0.229, -0.456/0.224, -0.406/0.225],
     std=[1/0.229, 1/0.224, 1/0.225]
 )
-# 这里的参数是 densenet161 指定的归一化参数
 
 eval_metrics = ['silog', 'abs_rel', 'log10', 'rms', 'sq_rel', 'log_rms', 'd1', 'd2', 'd3']
 
-import numpy as np
 
 def compute_errors(gt, pred):
     thresh = np.maximum((gt / pred), (pred / gt))
@@ -328,7 +325,6 @@ def main_worker(gpu, ngpus_per_node, args):
     if args.gpu is not None:
         print("Use GPU: {} for training".format(args.gpu))
 
-# 这是什么东西 啊？
     if args.distributed:
         if args.dist_url == "env://" and args.rank == -1:
             args.rank = int(os.environ["RANK"])
@@ -341,7 +337,7 @@ def main_worker(gpu, ngpus_per_node, args):
     model.train()
     model.decoder.apply(weights_init_xavier)
     set_misc(model)
-    # 将一些特定的层锁住 这些都是手段啊
+
     num_params = sum([np.prod(p.size()) for p in model.parameters()])
     print("Total number of parameters: {}".format(num_params))
 
@@ -369,7 +365,6 @@ def main_worker(gpu, ngpus_per_node, args):
     global_step = 0
     best_eval_measures_lower_better = torch.zeros(6).cpu() + 1e3
     best_eval_measures_higher_better = torch.zeros(3).cpu()
-    # best value of the trian
     best_eval_steps = np.zeros(9, dtype=np.int32)
 
     # Training parameters
@@ -377,11 +372,7 @@ def main_worker(gpu, ngpus_per_node, args):
                                    {'params': model.module.decoder.parameters(), 'weight_decay': 0}],
                                   lr=args.learning_rate, eps=args.adam_eps)
 
-    # the parameters of optimizer adam
-    # use weight_decay in encoder model
-
     model_just_loaded = False
-    # load the checkpoint
     if args.checkpoint_path != '':
         if os.path.isfile(args.checkpoint_path):
             print("Loading checkpoint '{}'".format(args.checkpoint_path))
@@ -412,7 +403,6 @@ def main_worker(gpu, ngpus_per_node, args):
 
     dataloader = BtsDataLoader(args, 'train')
     dataloader_eval = BtsDataLoader(args, 'online_eval')
-    # 数据加载
 
     # Logging
     if not args.multiprocessing_distributed or (args.multiprocessing_distributed and args.rank % ngpus_per_node == 0):
@@ -452,7 +442,6 @@ def main_worker(gpu, ngpus_per_node, args):
 
             image = torch.autograd.Variable(sample_batched['image'].cuda(args.gpu, non_blocking=True))
             focal = torch.autograd.Variable(sample_batched['focal'].cuda(args.gpu, non_blocking=True))
-            # focal 参数是在数据集中的
             depth_gt = torch.autograd.Variable(sample_batched['depth'].cuda(args.gpu, non_blocking=True))
 
             lpg8x8, lpg4x4, lpg2x2, reduc1x1, depth_est = model(image, focal)
