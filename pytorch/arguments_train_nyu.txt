@@ -28,4 +28,4 @@
 --max_depth_eval 0.4
 --eval_summary_directory ./models/eval
 --eigen_crop
---gpu "0"
+--gpu 0
