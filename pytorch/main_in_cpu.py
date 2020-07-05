@@ -493,7 +493,7 @@ def main_worker(gpu, ngpus_per_node, args):
                                   'model': model.state_dict(),
                                   'optimizer': optimizer.state_dict()}
                     # torch.save(checkpoint, args.log_directory + '/' + args.model_name + '/model-{}'.format(global_step))
-                    torch.save(checkpoint, "/media/lei/Backup Plus/bts_checkpoint" + '/model-{}'.format(global_step))
+                    torch.save(checkpoint, "./bts_checkpoint" + '/model-{}'.format(global_step))
             if args.do_online_eval and global_step and global_step % args.eval_freq == 0 and not model_just_loaded:
                 time.sleep(0.1)
                 model.eval()
@@ -528,7 +528,7 @@ def main_worker(gpu, ngpus_per_node, args):
                                           'best_eval_measures_lower_better': best_eval_measures_lower_better,
                                           'best_eval_steps': best_eval_steps
                                           }
-                            torch.save(checkpoint, "/media/lei/Backup Plus/bts_checkpoint" + model_save_name)
+                            torch.save(checkpoint, "./bts_checkpoint" + model_save_name)
                     eval_summary_writer.flush()
                 model.train()
                 block_print()
