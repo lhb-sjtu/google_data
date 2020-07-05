@@ -2,8 +2,8 @@
 --model_name timber_cube_dataset
 --encoder densenet161_bts
 --dataset nyu
---data_path /home/lei/PycharmProjects/test-simulation/timber_cube/Images
---gt_path /home/lei/PycharmProjects/test-simulation/timber_cube/Depths
+--data_path ./google_data/timber_cube/Images
+--gt_path ./google_data/timber_cube/Depths
 --batch_size 1
 --num_epochs 20
 --learning_rate 1e-4
@@ -15,17 +15,17 @@
 --max_depth 0.4
 --do_random_rotate
 --degree 2.5
---log_directory /home/lei/models
+--log_directory ./models/train
 --dist_url tcp://127.0.0.1:2345
 
 --log_freq 100
 --do_online_eval
---eval_freq 1
+--eval_freq 500
 --save_freq 200
---data_path_eval /home/lei/PycharmProjects/test-simulation/timber_cube_eval/Images
---gt_path_eval /home/lei/PycharmProjects/test-simulation/timber_cube_eval/Depths
+--data_path_eval ./google_data/timber_cube_eval/Images
+--gt_path_eval ./google_data/timber_cube_eval/Depths
 --min_depth_eval 0.15
 --max_depth_eval 0.4
---eval_summary_directory /home/lei/models/eval
+--eval_summary_directory ./models/eval
 --eigen_crop
---checkpoint_path /home/lei/models/timber_cube_dataset/model-19400
+--checkpoint_path ""
