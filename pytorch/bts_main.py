@@ -58,7 +58,7 @@ parser.add_argument('--encoder',                   type=str,   help='type of enc
 parser.add_argument('--dataset',                   type=str,   help='dataset to train on, kitti or nyu', default='nyu')
 parser.add_argument('--data_path',                 type=str,   help='path to the data', required=True)
 parser.add_argument('--gt_path',                   type=str,   help='path to the groundtruth data', required=True)
-parser.add_argument('--filenames_file',            type=str,   help='path to the filenames text file', required=True)
+parser.add_argument('--filenames_file',            type=str,   help='path to the filenames text file')
 parser.add_argument('--input_height',              type=int,   help='input height', default=480)
 parser.add_argument('--input_width',               type=int,   help='input width',  default=640)
 parser.add_argument('--max_depth',                 type=float, help='maximum depth in estimation', default=10)
